@@ -1,5 +1,7 @@
-import * as React from 'react';
 import { useState } from 'react';
+
+import { COMPLETED_STATUS, Request } from '../services/requestsService';
+
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,88 +15,54 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-// Generate Request Data
-function createData(
-    id: number,
-    date: string,
-    caseId: string,
-    description: string,
-    urgency: string,
-    status: string,
-) {
-    return { id, date, caseId, description, urgency, status };
+interface RequestsProps {
+    requests: Request[];
+    onOpenRequestModal: (request: Request) => void;
+    onRemoveRequest: (request: Request) => void;
 }
 
-const rows = [
-    createData(
-        0,
-        '16 Mar, 2019',
-        'Case 001',
-        'This is a description of the case. It is quite long but should not overflow the column.',
-        'High',
-        'completed',
-    ),
-    createData(
-        1,
-        '16 Mar, 2019',
-        'Case 002',
-        'This is a description of the case. It is quite long but should not overflow the column.',
-        'High',
-        'pending',
-    ),
-    createData(
-        2,
-        '16 Mar, 2019',
-        'Case 003',
-        'This is a description of the case. It is quite long but should not overflow the column.',
-        'High',
-        'pending',
-    ),
-    createData(
-        3,
-        '16 Mar, 2019',
-        'Case 004',
-        'This is a description of the case. It is quite long but should not overflow the column.',
-        'High',
-        'pending',
-    ),
-];
-
-function preventDefault(event: React.MouseEvent) {
-    event.preventDefault();
-}
-
-export default function Requests() {
+export default function Requests({ requests, onOpenRequestModal, onRemoveRequest }: RequestsProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [openedMenu, setOpenedMenu] = useState<number | null>(null); // Add this line
+    const [openedMenu, setOpenedMenu] = useState<number | null>(null);
+    const sortedRequests = [...requests].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     const handleClick = (id: number) => (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-        setOpenedMenu(id); // Set the id of the clicked menu
+        setOpenedMenu(id);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
-        setOpenedMenu(null); // Reset when menu is closed
+        setOpenedMenu(null);
     };
 
+    const handleRemoveRequest = () => {
+        onRemoveRequest(requests.find(request => request.id === openedMenu)!);
+        handleClose();
+    }
+
+    const handleOpenRequestModal = () => {
+        onOpenRequestModal(requests.find(request => request.id === openedMenu)!);
+        handleClose();
+    }
+
     return (
-        <React.Fragment>
-            <Title>Recent Cases</Title>
+        <>
+            <Title>Requests</Title>
             <TableContainer>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
                             <TableCell>Date</TableCell>
-                            <TableCell>Case ID</TableCell>
+                            <TableCell>Device ID</TableCell>
                             <TableCell>Description</TableCell>
-                            <TableCell>Urgency</TableCell>
+                            <TableCell>Priority</TableCell>
                             <TableCell>Status</TableCell>
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {sortedRequests.map((row) => (
                             <TableRow key={row.id}>
                                 <TableCell>{row.date}</TableCell>
                                 <TableCell>{row.caseId}</TableCell>
@@ -119,9 +87,8 @@ export default function Requests() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-                                        <MenuItem onClick={handleClose}>Respond</MenuItem>
-                                        <MenuItem onClick={handleClose}>Report to emergency</MenuItem>
-                                        <MenuItem onClick={handleClose}>Close the issue</MenuItem>
+                                        <MenuItem onClick={handleOpenRequestModal}>{row.status !== COMPLETED_STATUS ? 'Respond' : 'View request'}</MenuItem>
+                                        <MenuItem onClick={handleRemoveRequest}>Close the issue</MenuItem>
                                     </Menu>
                                 </TableCell>
                             </TableRow>
@@ -129,9 +96,9 @@ export default function Requests() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+            <Link color="primary" href="#" sx={{ mt: 3 }}>
                 See more cases
             </Link>
-        </React.Fragment>
+        </>
     );
 }

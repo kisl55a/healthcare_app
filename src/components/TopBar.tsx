@@ -2,9 +2,9 @@ import Typography from '@mui/material/Typography';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+
 import { styled } from '@mui/material/styles';
 
 const drawerWidth: number = 240;
@@ -66,9 +66,7 @@ const Topbar = ({ open, toggleDrawer }: TopbarProps) => {
           Dashboard
         </Typography>
         <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
+          <QuestionMarkIcon />
         </IconButton>
       </Toolbar>
     </StyledAppBar>

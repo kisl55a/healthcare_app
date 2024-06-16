@@ -3,36 +3,45 @@ import { useTheme } from '@mui/material/styles';
 import { LineChart, axisClasses } from '@mui/x-charts';
 
 import Title from './Title';
+import { Request } from '../services/requestsService';
 
 // Generate Request Data
-function createData(time: string, amount: number | null) {
-  return { time, amount: amount ?? null };
+function createData(time: string, amount: number) {
+  return { time, amount };
 }
 
-const data = [
-  createData('00:00', 0),
-  createData('03:00', 2),
-  createData('06:00', 0),
-  createData('09:00', 5),
-  createData('12:00', 12),
-  createData('15:00', 10),
-  createData('18:00', 9),
-  createData('21:00', 4),
-  createData('24:00', 0),
-];
+interface ChartProps {
+  requests: Request[];
+}
 
-export default function Chart() {
+export default function Chart({ requests }: ChartProps) {
   const theme = useTheme();
+
+  const dateCounts = requests.reduce((counts, request) => {
+    const date = new Date(request.date);
+    const day = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
+
+    if (!counts[day]) {
+      counts[day] = 0;
+    }
+    counts[day]++;
+    return counts;
+  }, {} as Record<string, number>);
+
+  const data = Object.entries(dateCounts).map(([date, count]) => {
+    return createData(date, count);
+  });
+
 
   return (
     <React.Fragment>
-      <Title>Today's Requests Handled</Title>
+      <Title>Requests by Date</Title>
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
         <LineChart
           dataset={data}
           margin={{
             top: 16,
-            right: 20,
+            right: 50,
             left: 70,
             bottom: 30,
           }}
@@ -45,8 +54,8 @@ export default function Chart() {
           ]}
           yAxis={[
             {
-              label: 'Requests Handled',
-              max: 20,
+              label: 'Number of Requests',
+              max: 10,
               tickNumber: 3,
             },
           ]}

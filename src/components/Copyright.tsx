@@ -1,8 +1,8 @@
-import Typography from '@mui/material/Typography';
+import Typography, { TypographyProps } from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
 
-function Copyright(props: any) {
+function Copyright(props: TypographyProps<'span', { component?: 'span' }>) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}

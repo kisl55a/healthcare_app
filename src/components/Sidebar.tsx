@@ -1,5 +1,3 @@
-
-import * as React from 'react';
 import { styled  } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,7 +5,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems } from './listItems';
 import { drawerWidth } from '../globals/globals';
 
 interface SideBarProps {
@@ -59,8 +57,6 @@ const SideBar = ({open, toggleDrawer}: SideBarProps) => {
         <Divider />
         <List component="nav">
           {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
         </List>
       </Drawer>
     );

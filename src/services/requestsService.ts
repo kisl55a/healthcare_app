@@ -46,8 +46,7 @@ let requests: Request[] = [
     'Device 006',
     'Successful restock of Paracetamol. Please confirm receipt.',
     HIGH_PRIORITY,
-    PENDING_STATUS,
-    'The inventory has been received.'
+    PENDING_STATUS
   ),
   createData(
     1231,
@@ -65,6 +64,7 @@ let requests: Request[] = [
     'Temperature fluctuation in the storage area. Please confirm temperature adjustment.',
     HIGH_PRIORITY,
     COMPLETED_STATUS,
+    'The temperature has been adjusted.'
   ),
   createData(
     7782,

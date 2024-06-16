@@ -29,7 +29,7 @@ let requests: Request[] = [
     'Device 004',
     'Low inventory of Ibuprofen. Please confirm restocking.',
     MEDIUM_PRIORITY,
-    PENDING_STATUS,
+    COMPLETED_STATUS,
   ),
   createData(
     4123,
@@ -42,16 +42,16 @@ let requests: Request[] = [
   ),
   createData(
     8743,
-    '13 Jun, 2024',
+    '16 Jun, 2024',
     'Device 006',
     'Successful restock of Paracetamol. Please confirm receipt.',
     HIGH_PRIORITY,
-    COMPLETED_STATUS,
+    PENDING_STATUS,
     'The inventory has been received.'
   ),
   createData(
     1231,
-    '16 Jun, 2024',
+    '13 Jun, 2024',
     'Device 001',
     'Unauthorized access attempt. Please confirm security check.',
     HIGH_PRIORITY,
@@ -60,18 +60,18 @@ let requests: Request[] = [
   ),
   createData(
     5542,
-    '16 Jun, 2024',
+    '13 Jun, 2024',
     'Device 002',
     'Temperature fluctuation in the storage area. Please confirm temperature adjustment.',
     HIGH_PRIORITY,
-    PENDING_STATUS,
+    COMPLETED_STATUS,
   ),
   createData(
     7782,
     '16 Jun, 2024',
     'Device 003',
     'Reports a power outage. Please confirm power restoration.',
-    MEDIUM_PRIORITY,
+    HIGH_PRIORITY,
     PENDING_STATUS,
   ),
 ];

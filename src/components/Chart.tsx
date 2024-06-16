@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { LineChart, axisClasses } from '@mui/x-charts';
+import { BarChart, axisClasses } from '@mui/x-charts';
 
 import Title from './Title';
 import { Request } from '../services/requestsService';
@@ -32,12 +32,11 @@ export default function Chart({ requests }: ChartProps) {
     return createData(date, count);
   });
 
-
   return (
     <React.Fragment>
       <Title>Requests by Date</Title>
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
-        <LineChart
+        <BarChart
           dataset={data}
           margin={{
             top: 16,
@@ -47,7 +46,7 @@ export default function Chart({ requests }: ChartProps) {
           }}
           xAxis={[
             {
-              scaleType: 'point',
+              scaleType: 'band', // Change this from 'point' to 'band'
               dataKey: 'time',
               tickNumber: 2,
             },
@@ -62,7 +61,6 @@ export default function Chart({ requests }: ChartProps) {
           series={[
             {
               dataKey: 'amount',
-              showMark: false,
               color: theme.palette.primary.light,
             },
           ]}

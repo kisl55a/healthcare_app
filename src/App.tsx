@@ -48,8 +48,8 @@ const App: React.FC = () => {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
-                <Route path="/home" Component={DashboardPage} />
-                <Route path="/" element={<Navigate to="/home" />} />
+                <Route path="/dashboard" Component={DashboardPage} />
+                <Route path="/" element={<Navigate to="/dashboard" />} />
               </Routes>
             </Container>
             <Box

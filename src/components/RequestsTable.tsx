@@ -14,6 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import CheckIcon from '@mui/icons-material/Check';
+import Priority from './Priority';
 
 interface RequestsProps {
     requests: Request[];
@@ -67,8 +70,8 @@ export default function Requests({ requests, onOpenRequestModal, onRemoveRequest
                                 <TableCell>{row.date}</TableCell>
                                 <TableCell>{row.caseId}</TableCell>
                                 <TableCell style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.description}</TableCell>
-                                <TableCell>{row.urgency}</TableCell>
-                                <TableCell>{row.status}</TableCell>
+                                <TableCell>{<Priority level={row.urgency} status={row.status} />}</TableCell>
+                                <TableCell>{row.status === COMPLETED_STATUS ? <CheckIcon /> : <HourglassEmptyIcon />}</TableCell>
                                 <TableCell>
                                     <IconButton
                                         aria-label="more"
@@ -88,7 +91,7 @@ export default function Requests({ requests, onOpenRequestModal, onRemoveRequest
                                         }}
                                     >
                                         <MenuItem onClick={handleOpenRequestModal}>{row.status !== COMPLETED_STATUS ? 'Respond' : 'View request'}</MenuItem>
-                                        <MenuItem onClick={handleRemoveRequest}>Close the issue</MenuItem>
+                                        {row.status !== COMPLETED_STATUS && <MenuItem onClick={handleRemoveRequest}>Reject the issue</MenuItem>}
                                     </Menu>
                                 </TableCell>
                             </TableRow>

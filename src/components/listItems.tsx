@@ -15,25 +15,25 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton disabled>
       <ListItemIcon>
         <FormatListBulletedIcon />
       </ListItemIcon>
       <ListItemText primary="Requests" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton disabled>
       <ListItemIcon>
         <AccountCircleIcon />
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton disabled>
       <ListItemIcon>
         <DevicesIcon />
       </ListItemIcon>
       <ListItemText primary="Device Manager" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton disabled>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
